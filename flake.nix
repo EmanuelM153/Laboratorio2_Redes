@@ -24,17 +24,17 @@
         ];
 
         shellHook = ''
-          pip install -r requirements.txt
-
-          # For working globally with bake
-          cd bake
-          export PATH=$PATH:${bake_home}/build/bin
-
           For installing pip packages as discussed in 
           export PIP_PREFIX=$(pwd)/_build/pip_packages
           export PYTHONPATH="$PIP_PREFIX/${pkgs.python3.sitePackages}:$PYTHONPATH"
           export PATH="$PIP_PREFIX/bin:$PATH"
           unset SOURCE_DATE_EPOCH
+
+          pip install -r requirements.txt
+
+          # For working globally with bake
+          cd bake
+          export PATH=$PATH:${bake_home}/build/bin
         '';
 
         BAKE_HOME = bake_home;
