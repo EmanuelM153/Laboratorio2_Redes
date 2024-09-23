@@ -1,9 +1,9 @@
 FROM ubuntu:18.04
 
 # Set environment variables persistently
-RUN export PATH="/root/bake/build/bin:/root/bake/build/bin_dce:${PATH}"
-RUN export LD_LIBRARY_PATH="/root/bake/build/lib:${LD_LIBRARY_PATH}"
-RUN export DCE_PATH="/root/bake/build/bin_dce:/root/bake/build/sbin:${DCE_PATH}"
+ENV PATH="/root/bake/build/bin:/root/bake/build/bin_dce:${PATH}"
+ENV LD_LIBRARY_PATH="/root/bake/build/lib:${LD_LIBRARY_PATH}"
+ENV DCE_PATH="/root/bake/build/bin_dce:/root/bake/build/sbin:${DCE_PATH}"
 
 # Ensure that the package lists are updated correctly
 RUN apt-get update -y && apt-get upgrade -y
@@ -27,6 +27,8 @@ RUN ./bake.py configure -e dce-ns3-1.11
 
 # Download the required packages
 RUN ./bake.py download
+
+COPY ./dce-global-variables.cc /root/bake/source/ns-3-dce/model
 
 # Build everything
 RUN ./bake.py build
