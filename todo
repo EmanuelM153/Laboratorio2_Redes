@@ -1,0 +1,3 @@
+Configure image to use python 3.38 only for building pybindgen
+	- Install requests distro with pip using that python version
+Compile bindings for other pythons
